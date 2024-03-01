@@ -7,33 +7,59 @@ Class {
 { #category : #accessing }
 PharoDoc class >> generateDocClasses: packageName [
 	"Method who generate the documentation for the classes in packages"
-	|package array|
-	package := (RPackageOrganizer default packageNamed: packageName) definedClasses.
+
+	| package array stream |
+	package := (RPackageOrganizer default packageNamed: packageName)
+		           definedClasses.
 	array := package asOrderedCollection.
-	array do: [ :classe | 
-		Transcript show: '====='; cr;
-		show: 'Class : ', classe name; cr;
-		show: ('Superclass : ', classe superclass name); cr.
-		classe subclassesDo: [ :sub | Transcript show: ('Subclasses : ', classe subclasses); cr. ].
-		classe allInstVarNames ifNotEmpty: [ 
-			Transcript show: ('Instances variables : ').
-			classe allInstVarNames do: [:var | Transcript show: var;cr]
+	stream := '' writeStream.
+	array do: [ :classe |
+		stream nextPutAll: '====';
+			nextPut: Character lf;
+			nextPutAll: 'Class : ';
+			nextPutAll: classe name;
+			nextPut: Character lf;
+			nextPutAll: 'Superclass : ';
+			nextPutAll: classe superclass name;
+			nextPut: Character lf.
+		classe subclasses ifNotEmpty: [
+			stream
+				nextPut: Character lf;
+				nextPutAll: 'Subclasses : ';
+				nextPut: Character lf.
+			classe subclassesDo: [ :sub |
+				stream
+					nextPutAll: '    ' ; 
+					nextPutAll: classe subclasses;
+					nextPut: Character lf ] ].
+		classe allInstVarNames ifNotEmpty: [
+			stream nextPutAll: 'Instances variables : '.
+			classe allInstVarNames do: [ :var |
+				stream
+					nextPutAll: var;
+					nextPutAll: ' / '.
+			].
+		stream nextPut: Character lf. 
 		].
-		self generateDocMethods: classe
-	].
+		Transcript show: stream contents;cr.
+		"Once doc about general information is given, the method will call another one to have the informations about the methods of the class"
+		self generateDocMethods: classe ]
 ]
 
 { #category : #accessing }
 PharoDoc class >> generateDocMethods: className [
-	"Method who generate the documentation for the classes in packages"
-	|array|
+	"Method who generate the documentation for the methods for the classes in packages"
+	|array stream|
+	stream := '' writeStream.
 	array := className methods.
 	array ifNotEmpty: [		
 		array do: [ :method | 
 			| currentSender |
 			currentSender := ''.
 			
-			Transcript show: 'Method : ', (method selector) ; cr.
+			stream nextPutAll: 'Method : ';
+			nextPutAll: (method selector); 
+			nextPut: Character lf.
 			
 			method senders ifNotEmpty: [
 				method senders do: [ :send | 
@@ -41,20 +67,27 @@ PharoDoc class >> generateDocMethods: className [
 					| senderName |
 					senderName := (send name) copyUpTo: #>> first.
 					
-					(currentSender = senderName) ifFalse:[
-						Transcript show: '***'; cr.
-						Transcript show: 'Sender : ', senderName; cr.
-					].
 					(currentSender = senderName) ifTrue:[
-						Transcript show: '    - ', send selector; cr.
+						stream nextPutAll: '    - ';
+						nextPutAll: send selector;
+						nextPut: Character lf.
 					] ifFalse: [
-						Transcript show: '    - ', send selector; cr.
+						stream nextPutAll: '***';
+						nextPut: Character lf;
+						nextPutAll: 'Sender : ';
+						nextPutAll: senderName;
+						nextPut: Character lf;
+						nextPutAll: '    - ';
+						nextPutAll: send selector;
+						nextPut: Character lf.
 						currentSender := senderName.
 					].
 				].
 			].
-			Transcript show: '-------'; cr.
+			stream nextPutAll: '-------';
+			nextPut: Character lf.
 		].
 	].
+	Transcript show: stream contents;cr.
 	^self
 ]
