@@ -10,7 +10,7 @@ Transcript open.
 PharoDoc generationDocClasses: 'PackageName'.
 ```
 
-[Execution doc](PharoDoc_Execution.png)
+![Execution PharoDoc](PharoDoc_Execution.png)
 
 ## Tests
 
