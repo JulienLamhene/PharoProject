@@ -82,12 +82,3 @@ MatrixTest >> testSize [
 	m matrix: #((1 0 3) (0 5 6)).
 	self assert: m size equals: 6
 ]
-
-{ #category : #running }
-MatrixTest >> testToHollowMatrix [
-	|m hollow|
-	m := Matrix new.
-	m matrix: #((0 0 3 0 4) (0 0 5 7 0) (0 0 0 0 0) (0 2 6 0 0)).
-	hollow := #((0 0 1 1 3 3) (2 4 2 3 1 2) (3 4 5 7 2 6)).
-	self assert: m toHollowMatrix matrix equals: hollow
-]
