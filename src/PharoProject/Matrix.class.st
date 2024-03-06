@@ -98,3 +98,45 @@ Matrix >> size [
 	count := matrix collect: #size.
 	^ count sum.
 ]
+
+{ #category : #'instance creation' }
+Matrix >> toClassicMatrix [
+    "A method that converts the sparse matrix to a classic matrix"
+    | classic numRows numCols |
+    numRows := (self numberRows) + 1. 
+    numCols := (self numberCols) - 1. 
+
+  	 classic := Matrix new rows: numRows cols:numCols.
+
+    1 to: (self numberCols) do: [ :idx |
+        | i j value |
+        i := (self atRow: 1 atCol: idx).
+        j := (self atRow: 2 atCol: idx).
+        value := self atRow: 3 atCol: idx.
+
+        classic atRow: i atCol: j put: value.
+    ].
+
+    ^ classic
+]
+
+{ #category : #'instance creation' }
+Matrix >> toHollowMatrix [
+	"A method who return the hollow version of our matrix"
+	|hollow noZeros idx|
+	idx := 1.
+	noZeros := self countNoZeros.
+	hollow := Matrix new rows: 3 cols: noZeros.
+	1 to: (self numberRows) do: [:i |
+		 1 to: (self numberCols) do: [ :j | 
+			(self atRow: i atCol: j) ~= 0
+				ifTrue: [ 
+					hollow atRow: 1 atCol: idx put: i.
+					hollow atRow: 2 atCol: idx put: j.
+					hollow atRow: 3 atCol: idx put: (self atRow: i atCol: j ).
+					idx := idx + 1
+				]
+		]
+	].
+	^ hollow
+]

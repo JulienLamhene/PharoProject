@@ -82,3 +82,23 @@ MatrixTest >> testSize [
 	m matrix: #((1 0 3) (0 5 6)).
 	self assert: m size equals: 6
 ]
+
+{ #category : #running }
+MatrixTest >> testToClassicMatrix [
+	|m hollow|
+	m := Matrix new.
+	m matrix: #((0 0 3 0 4) (0 0 5 7 0) (0 0 0 0 0) (0 2 6 0 0)).
+	hollow := Matrix new.
+	hollow matrix: #((1 1 2 2 4 4) (3 5 3 4 2 3) (3 4 5 7 2 6)).
+	self assert: (hollow toClassicMatrix) matrix equals: m matrix
+]
+
+{ #category : #running }
+MatrixTest >> testToHollowMatrix [
+	|m hollow|
+	m := Matrix new.
+	m matrix: #((0 0 3 0 4) (0 0 5 7 0) (0 0 0 0 0) (0 2 6 0 0)).
+	hollow := Matrix new rows: 3 cols: 6.
+	hollow matrix: #((1 1 2 2 4 4) (3 5 3 4 2 3) (3 4 5 7 2 6)).
+	self assert: m toHollowMatrix matrix equals: hollow matrix
+]
