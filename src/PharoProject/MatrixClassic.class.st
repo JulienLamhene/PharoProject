@@ -1,0 +1,94 @@
+Class {
+	#name : #MatrixClassic,
+	#superclass : #Matrix,
+	#instVars : [
+		'elements'
+	],
+	#category : #PharoProject
+}
+
+{ #category : #accessing }
+MatrixClassic >> atRow: row atCol: col [
+	"This method return the value at row and col given"
+	^ (elements at: row) at: col.
+]
+
+{ #category : #accessing }
+MatrixClassic >> atRow: row atCol: col put: elt [
+	"This method put the element at row and col given"
+	^ (elements at: row) at: col put: elt.
+]
+
+{ #category : #accessing }
+MatrixClassic >> countNoZeros [
+	"A method to count in a matrix all element different of 0, a array is created by collection the wanted element based on the matrix, then collect the size of each subtables of array and summing them up"
+	|array count|
+	count := 0.
+	array := elements collect: [ :i | i select: [ :y | y ~= 0 ] ].
+	count := array collect: #size.
+	^ count sum.
+]
+
+{ #category : #accessing }
+MatrixClassic >> elements [
+	^ elements.
+]
+
+{ #category : #accessing }
+MatrixClassic >> elements: elts [
+	elements := elts.
+]
+
+{ #category : #initialization }
+MatrixClassic >> initialize [
+	super initialize.
+	rows := 3.
+	cols := 3.
+	elements := Array new: rows.
+	1 to: rows do: [ :row |
+		elements at: row put: (Array new: cols).
+		1 to: cols do: [ :col | 
+			(elements at: row) at: col put: 0.
+		]
+	].
+]
+
+{ #category : #accessing }
+MatrixClassic >> rows: row cols: col [
+	"A instance creation method who permit to create a empty matrix based on the number of row and cols given"
+	rows := row.
+	cols := col.
+	elements := Array new: row.
+	1 to: row do: [:i |
+ 	   elements at: i put: (Array new: col).
+		1 to: col do: [ :j | 
+			(elements at: i) at: j put: 0 ]
+	].
+]
+
+{ #category : #'instance creation' }
+MatrixClassic >> toClassicMatrix [
+    "A method that converts the sparse matrix to a classic matrix"
+    ^ self.
+]
+
+{ #category : #'instance creation' }
+MatrixClassic >> toHollowMatrix [
+	"A method who return the hollow version of our matrix"
+	|hollow noZeros idx|
+	idx := 1.
+	noZeros := self countNoZeros.
+	hollow := SparseMatrix new rows: 3 cols: noZeros.
+	1 to: (rows) do: [:i |
+		 1 to: (cols) do: [ :j | 
+			(self atRow: i atCol: j) ~= 0
+				ifTrue: [ 
+					hollow atRow: 1 atCol: idx put: i.
+					hollow atRow: 2 atCol: idx put: j.
+					hollow atRow: 3 atCol: idx put: (self atRow: i atCol: j ).
+					idx := idx + 1
+				]
+		]
+	].
+	^ hollow
+]
