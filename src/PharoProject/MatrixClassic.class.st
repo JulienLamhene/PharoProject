@@ -37,6 +37,8 @@ MatrixClassic >> elements [
 { #category : #accessing }
 MatrixClassic >> elements: elts [
 	elements := elts.
+	rows := elts size.
+	cols := elts first size.
 ]
 
 { #category : #initialization }

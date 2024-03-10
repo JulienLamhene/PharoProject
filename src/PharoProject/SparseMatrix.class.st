@@ -27,6 +27,8 @@ SparseMatrix >> elements [
 { #category : #accessing }
 SparseMatrix >> elements: elts [
 	elements := elts.
+	rows := elts size.
+	cols := elts first size.
 ]
 
 { #category : #'instance creation' }
@@ -50,6 +52,19 @@ SparseMatrix >> maxCol [
 { #category : #accessing }
 SparseMatrix >> maxRow [
 	^ elements first max.
+]
+
+{ #category : #accessing }
+SparseMatrix >> rows: row cols: col [
+	"A instance creation method who permit to create a empty matrix based on the number of row and cols given"
+	rows := row.
+	cols := col.
+	elements := Array new: row.
+	1 to: row do: [:i |
+ 	   elements at: i put: (Array new: col).
+		1 to: col do: [ :j | 
+			(elements at: i) at: j put: 0 ]
+	].
 ]
 
 { #category : #'instance creation' }
