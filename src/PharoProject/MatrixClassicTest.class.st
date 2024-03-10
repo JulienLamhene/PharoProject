@@ -51,6 +51,17 @@ MatrixClassicTest >> testInitialize [
 ]
 
 { #category : #running }
+MatrixClassicTest >> testPlus [
+	| m m2 res |
+	m := MatrixClassic new.
+	m2 := MatrixClassic new.
+	m elements: #((1 1 1) (1 1 1) (1 1 1)).
+	m2 elements: #((1 1 1) (1 1 1) (1 1 1)).
+	res := m + m2.
+	self assert: res elements equals: #((2 2 2) (2 2 2) (2 2 2)).
+]
+
+{ #category : #running }
 MatrixClassicTest >> testRowsCols [
 	| m |
 	m := MatrixClassic new rows: 2 cols: 3.
@@ -67,11 +78,32 @@ MatrixClassicTest >> testSize [
 ]
 
 { #category : #running }
-MatrixClassicTest >> testToHollowMatrix [
+MatrixClassicTest >> testSubstract [
+	| m m2 res |
+	m := MatrixClassic new.
+	m2 := MatrixClassic new.
+	m elements: #((2 2 2) (2 2 2) (2 2 2)).
+	m2 elements: #((1 1 1) (1 1 1) (1 1 1)).
+	res := m - m2.
+	self assert: res elements equals: #((1 1 1) (1 1 1) (1 1 1)).
+]
+
+{ #category : #running }
+MatrixClassicTest >> testToClassicMatrix [
+	|m classic|
+	m := MatrixClassic new.
+	m elements: #((0 0 3 0 4) (0 0 5 7 0) (0 0 0 0 0) (0 2 6 0 0)).
+	classic := MatrixClassic new rows: 3 cols: 6.
+	classic elements: #((0 0 3 0 4) (0 0 5 7 0) (0 0 0 0 0) (0 2 6 0 0)).
+	self assert: m toClassicMatrix elements equals: classic elements.
+]
+
+{ #category : #running }
+MatrixClassicTest >> testToSparseMatrix [
 	|m hollow|
 	m := MatrixClassic new.
 	m elements: #((0 0 3 0 4) (0 0 5 7 0) (0 0 0 0 0) (0 2 6 0 0)).
 	hollow := SparseMatrix new rows: 3 cols: 6.
 	hollow elements: #((1 1 2 2 4 4) (3 5 3 4 2 3) (3 4 5 7 2 6)).
-	self assert: m toHollowMatrix elements equals: hollow elements.
+	self assert: m toSparseMatrix elements equals: hollow elements.
 ]

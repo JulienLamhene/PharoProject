@@ -60,7 +60,7 @@ Matrix >> toClassicMatrix [
 ]
 
 { #category : #'instance creation' }
-Matrix >> toHollowMatrix [
+Matrix >> toSparseMatrix [
 	"A method who return the hollow version of our matrix"
 	^ self subclassResponsibility
 ]

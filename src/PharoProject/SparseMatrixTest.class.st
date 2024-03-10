@@ -50,3 +50,13 @@ SparseMatrixTest >> testToClassicMatrix [
 	hollow elements: #((1 1 2 2 4 4) (3 5 3 4 2 3) (3 4 5 7 2 6)).
 	self assert: (hollow toClassicMatrix) elements equals: m elements
 ]
+
+{ #category : #running }
+SparseMatrixTest >> testToSparseMatrix [
+	|hollow sparse|
+	hollow := SparseMatrix new rows: 3 cols: 6.
+	hollow elements: #((1 1 2 2 4 4) (3 5 3 4 2 3) (3 4 5 7 2 6)).
+	sparse := SparseMatrix new rows: 3 cols: 6.
+	sparse elements: #((1 1 2 2 4 4) (3 5 3 4 2 3) (3 4 5 7 2 6)).
+	self assert: hollow toSparseMatrix elements equals: sparse elements.
+]

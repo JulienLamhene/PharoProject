@@ -16,7 +16,7 @@ SparseMatrix >> atRow: row atCol: col [
 { #category : #accessing }
 SparseMatrix >> atRow: row atCol: col put: elt [
 	"This method put the element at row and col given"
-	^ (elements at: row) at: col put: elt.
+	^ (self toClassicMatrix) atRow: row atCol: col put: elt.
 ]
 
 { #category : #accessing }
@@ -89,7 +89,7 @@ SparseMatrix >> toClassicMatrix [
 ]
 
 { #category : #'instance creation' }
-SparseMatrix >> toHollowMatrix [
+SparseMatrix >> toSparseMatrix [
 	"A method who return the hollow version of our matrix"
 	^ self.
 ]

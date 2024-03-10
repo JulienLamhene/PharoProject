@@ -8,6 +8,36 @@ Class {
 }
 
 { #category : #accessing }
+MatrixClassic >> + aClassicMatrix [
+	"This method addition the value of two matrix"
+	| res |
+	res := MatrixClassic new rows: rows cols: cols.
+	1 to: rows do: [ :r | 
+		1 to: cols do: [ :c | 
+			|added|
+			added := (self atRow: r atCol: c ) + (aClassicMatrix atRow: r atCol: c ).
+			res atRow: r atCol: c put: added.
+			].
+		].
+	^ res
+]
+
+{ #category : #accessing }
+MatrixClassic >> - aClassicMatrix [
+	"Addition two matrix"
+	| res |
+	res := MatrixClassic new rows: rows cols: cols.
+	1 to: rows do: [ :r | 
+		1 to: cols do: [ :c | 
+			|added|
+			added := (self atRow: r atCol: c ) - (aClassicMatrix atRow: r atCol: c ).
+			res atRow: r atCol: c put: added.
+			].
+		].
+	^ res
+]
+
+{ #category : #accessing }
 MatrixClassic >> atRow: row atCol: col [
 	"This method return the value at row and col given"
 	^ (elements at: row) at: col.
@@ -75,7 +105,7 @@ MatrixClassic >> toClassicMatrix [
 ]
 
 { #category : #'instance creation' }
-MatrixClassic >> toHollowMatrix [
+MatrixClassic >> toSparseMatrix [
 	"A method who return the hollow version of our matrix"
 	|hollow noZeros idx|
 	idx := 1.
