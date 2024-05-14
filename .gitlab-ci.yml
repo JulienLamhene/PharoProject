@@ -1,7 +1,7 @@
 stages:
   - test
 
-image: squeak:latest
+image: basmalltalk/pharo
 
 test:
   stage: test
