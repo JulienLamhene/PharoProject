@@ -1,15 +1,15 @@
 stages:
   - test
 
-image: kubuntu  # Replace with the image containing your Pharo environment
+image: runner  # Replace with the image containing your Pharo environment
 
 test:
   stage: test
   script:
     - pharo-test-command COVERAGE=true
     # Send coverage data to Coveralls using curl
-    - curl -s https://coveralls.io/repos/gitlab/your_username/your_project_name/badge.svg?branch=$CI_COMMIT_REF_NAME -o coverage.svg
-    - curl -s https://coveralls.io/gitlab/your_username/your_project_name/coveralls.json -F repo_token=$COVERALLS_TOKEN -F json_coverage=coverage.xml
+    - curl -s https://coveralls.io/repos/gitlab/JulienLamhene/pharoproject/badge.svg?branch=$CI_COMMIT_REF_NAME -o coverage.svg
+    - curl -s https://coveralls.io/gitlab/JulienLamhene/pharoproject/coveralls.json -F repo_token=$COVERALLS_TOKEN -F json_coverage=coverage.xml
 
   artifacts:
     paths:
