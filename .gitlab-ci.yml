@@ -1,7 +1,7 @@
 stages:
   - test
 
-image: wurstmeister/pharo  # Replace with the image containing your Pharo environment
+image: squeak:latest
 
 test:
   stage: test
