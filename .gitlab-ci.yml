@@ -1,7 +1,7 @@
 stages:
   - test
 
-image: runner  # Replace with the image containing your Pharo environment
+image: wurstmeister/pharo  # Replace with the image containing your Pharo environment
 
 test:
   stage: test
