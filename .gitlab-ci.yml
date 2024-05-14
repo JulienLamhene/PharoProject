@@ -1,7 +1,7 @@
 image: hpiswa/smalltalkci
 
 variables:
-  COVERAGE_DIR: /builds/PharoProject/coverage
+  COVERAGE_DIR: /builds/pharoproject/coverage
 
 stages:
   - test
