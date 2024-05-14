@@ -1,24 +1,24 @@
-stages:
-  - test
-
-image: basmalltalk/pharo
-
-test:
-  stage: test
-  script:
-    - pharo-test-command COVERAGE=true
-    # Send coverage data to Coveralls using curl
-    - curl -s https://coveralls.io/repos/gitlab/JulienLamhene/pharoproject/badge.svg?branch=$CI_COMMIT_REF_NAME -o coverage.svg
-    - curl -s https://coveralls.io/gitlab/JulienLamhene/pharoproject/coveralls.json -F repo_token=$COVERALLS_TOKEN -F json_coverage=coverage.xml
-
-  artifacts:
-    paths:
-      - coverage.svg  # Optional: Artifact to see the badge on GitLab pipeline
+image: hpiswa/smalltalkci
 
 variables:
-  COVERALLS_TOKEN: 92pyy0sfXhnbZTEQqz9gGdcH8msoJljLt
+  COVERAGE_DIR: /builds/PharoProject/coverage
 
-cache:
-  paths:
-    - ~/.pharo/  # Cache your Pharo image downloads to speed up builds
+stages:
+  - test
+  - coverage
 
+run tests:
+  stage: test
+  script: smalltalkci -s "Pharo64-11.0"
+  artifacts:
+    paths:
+      - $COVERAGE_DIR
+
+extract coverage:
+  stage: coverage
+  image: python:3.9-slim-buster
+  script:
+    - pip install lcov-cobertura-fix==1.6.1a2
+    - lcov_cobertura $COVERAGE_DIR/lcov.info --output $COVERAGE_DIR/coverage.xml
+  dependencies: 
+    - run tests
