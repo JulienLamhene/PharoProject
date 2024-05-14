@@ -1,0 +1,8 @@
+SmalltalkCISpec {
+  #testing : {
+    #coverage : {
+      #packages : [ 'PharoProject' ],
+      #format : #lcov
+    }
+  }
+}
