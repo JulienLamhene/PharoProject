@@ -1,4 +1,24 @@
-# The Docker image that will be used to build your app
-image: debian
-# Functions that should be executed before the build script is run
-before_script: []
+stages:
+  - test
+
+image: kubuntu  # Replace with the image containing your Pharo environment
+
+test:
+  stage: test
+  script:
+    - pharo-test-command COVERAGE=true
+    # Send coverage data to Coveralls using curl
+    - curl -s https://coveralls.io/repos/gitlab/your_username/your_project_name/badge.svg?branch=$CI_COMMIT_REF_NAME -o coverage.svg
+    - curl -s https://coveralls.io/gitlab/your_username/your_project_name/coveralls.json -F repo_token=$COVERALLS_TOKEN -F json_coverage=coverage.xml
+
+  artifacts:
+    paths:
+      - coverage.svg  # Optional: Artifact to see the badge on GitLab pipeline
+
+variables:
+  COVERALLS_TOKEN: 92pyy0sfXhnbZTEQqz9gGdcH8msoJljLt
+
+cache:
+  paths:
+    - ~/.pharo/  # Cache your Pharo image downloads to speed up builds
+
