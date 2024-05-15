@@ -114,10 +114,16 @@ MatrixClassic >> toSparseMatrix [
 	1 to: (rows) do: [:i |
 		 1 to: (cols) do: [ :j | 
 			(self atRow: i atCol: j) ~= 0
-				ifTrue: [ 
-					hollow atRow: 1 atCol: idx put: i.
+				ifTrue: [
+					Transcript show: 'i : '.
+					Transcript show: i; cr.
+					Transcript show: 'j : '.
+					Transcript show: j; cr.
+					Transcript show: 'idx : '.
+					Transcript show: idx; cr.
+					hollow atRow: 1 atCol: idx put: j.
 					hollow atRow: 2 atCol: idx put: j.
-					hollow atRow: 3 atCol: idx put: (self atRow: i atCol: j ).
+					hollow atRow: 3 atCol: idx put: (self atRow: i atCol: j).
 					idx := idx + 1
 				]
 		]
