@@ -1,4 +1,12 @@
 SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'PharoProject',
+      #onConflict : #useIncoming,
+      #directory : 'src',
+      #platforms : [ #pharo ]
+    }
+  ],
   #testing : {
     #coverage : {
       #packages : [ 'PharoProject' ],
