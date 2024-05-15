@@ -46,7 +46,7 @@ SparseMatrixTest >> testToClassicMatrix [
 	|m hollow|
 	m := MatrixClassic new.
 	m elements: #((0 0 3 0 4) (0 0 5 7 0) (0 0 0 0 0) (0 2 6 0 0)).
-	hollow := SparseMatrix  new.
+	hollow := SparseMatrix new.
 	hollow elements: #((1 1 2 2 4 4) (3 5 3 4 2 3) (3 4 5 7 2 6)).
 	self assert: (hollow toClassicMatrix) elements equals: m elements
 ]

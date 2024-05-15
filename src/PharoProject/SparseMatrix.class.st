@@ -72,16 +72,18 @@ SparseMatrix >> toClassicMatrix [
     "A method that converts the sparse matrix to a classic matrix"
     | classic numRows numCols |
     numRows := self maxRow. 
-    numCols := self maxRow + 1.
+    numCols := self maxCol.
 
   	 classic := MatrixClassic new rows: numRows cols:numCols.
 
     1 to: (self cols) do: [ :idx |
         | i j value |
         i := ((elements at: 1) at: idx).
+		  Transcript show: i; cr.
         j := ((elements at: 2) at: idx).
+		  Transcript show: j; cr.
         value := ((elements at: 3) at: idx).
-
+		  Transcript show: value; cr.
         (classic elements at: i) at: j put: value.
     ].
 
