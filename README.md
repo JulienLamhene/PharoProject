@@ -15,3 +15,5 @@ PharoDoc generationDocClasses: 'PackageName'.
 ## Tests
 
 Seuls les classes Matrix présente des tests en la présence de MatrixTest, car je dois admettre que je ne savais pas créer une classe de Test qui testerait PharoDoc dût à son contexte particulier.
+
+[![Coverage Status](https://coveralls.io/repos/github/JulienLamhene/PharoProject/badge.svg?branch=main)](https://coveralls.io/github/JulienLamhene/PharoProject?branch=main)
