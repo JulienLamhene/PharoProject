@@ -121,9 +121,11 @@ MatrixClassic >> toSparseMatrix [
 					Transcript show: j; cr.
 					Transcript show: 'idx : '.
 					Transcript show: idx; cr.
-					hollow atRow: 1 atCol: idx put: j.
-					hollow atRow: 2 atCol: idx put: j.
-					hollow atRow: 3 atCol: idx put: (self atRow: i atCol: j).
+					Transcript show: 'sparMatrix : '.
+					Transcript show: hollow elements; cr.
+					(hollow elements at: 1) at: idx put: i.
+					(hollow elements at: 2) at: idx put: j.
+					(hollow elements at: 3) at: idx put: (self atRow: i atCol: j).
 					idx := idx + 1
 				]
 		]

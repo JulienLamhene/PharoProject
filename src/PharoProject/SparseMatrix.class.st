@@ -73,20 +73,12 @@ SparseMatrix >> toClassicMatrix [
     | classic numRows numCols |
     numRows := self maxRow. 
     numCols := self maxCol.
-	 Transcript show: 'numRows : '.
-	 Transcript show: numRows; cr.
-	 Transcript show: 'numCols : '.
-	 Transcript show: numCols; cr.
   	 classic := MatrixClassic new rows: numRows cols:numCols.
 
     1 to: (self cols) do: [ :idx |
         | i j value |
         i := ((elements at: 1) at: idx).
-		  Transcript show: 'toClassic i : '.
-		  Transcript show: i; cr.
         j := ((elements at: 2) at: idx).
-		  Transcript show: 'toClassic j : '.
-		  Transcript show: j; cr.
         value := ((elements at: 3) at: idx).
         (classic elements at: i) at: j put: value.
     ].
